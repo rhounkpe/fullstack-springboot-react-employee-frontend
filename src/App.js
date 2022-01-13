@@ -1,8 +1,10 @@
 import './App.css';
+import ListEmployeeComponent from "./components/ListEmployeeComponent";
 
 function App() {
   return (
-    <div>
+    <div className="container">
+      <ListEmployeeComponent />
     </div>
   );
 }
