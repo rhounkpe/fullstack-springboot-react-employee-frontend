@@ -1,4 +1,5 @@
 import React from "react";
+import EmployeeService from "../services/EmployeeService";
 
 class CreateEmployeeComponent extends React.Component {
     constructor(props) {
@@ -37,6 +38,10 @@ class CreateEmployeeComponent extends React.Component {
         };
 
         console.log('employee => ', JSON.stringify(employee));
+
+        EmployeeService.createEmployee(employee).then(res => {
+           this.props.history.push('/employees');
+        });
     }
 
     cancel = (e) => {
