@@ -6,6 +6,7 @@ class CreateEmployeeComponent extends React.Component {
         super(props);
 
         this.state = {
+            id: this.props.match.params.id,
             firstName: '',
             lastName: '',
             email: ''
@@ -15,6 +16,21 @@ class CreateEmployeeComponent extends React.Component {
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.saveEmployee = this.saveEmployee.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.state.id == -1) {
+            return
+        } else {
+            EmployeeService.getEmployeeById(this.state.id).then((res) => {
+                let employee = res.data;
+                this.setState({
+                    firstName: employee.firstName,
+                    lastName: employee.lastName,
+                    email: employee.email
+                })
+            });
+        }
     }
 
     changeFirstNameHandler(event) {
@@ -39,9 +55,24 @@ class CreateEmployeeComponent extends React.Component {
 
         console.log('employee => ', JSON.stringify(employee));
 
-        EmployeeService.createEmployee(employee).then(res => {
-           this.props.history.push('/employees');
-        });
+        if (this.state.id == -1) {
+            EmployeeService.createEmployee(employee).then(res => {
+               this.props.history.push('/employees');
+            });
+        } else {
+            EmployeeService.updateEmployee(employee, this.state.id).then(res => {
+                this.props.history.push('/employees');
+            });
+        }
+    }
+
+
+    getTitle() {
+        if (this.state.id == -1) {
+            return <h2 className="text-center">Add Employee</h2>
+        } else {
+            return <h2 className="text-center">Update Employee</h2>
+        }
     }
 
     cancel = (e) => {
@@ -53,7 +84,7 @@ class CreateEmployeeComponent extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="card col-md-6 offset-md-3 offset-md-3">
-                        <h2 className="text-center">Employee Form</h2>
+                        { this.getTitle() }
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
