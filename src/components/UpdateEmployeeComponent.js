@@ -51,7 +51,7 @@ class UpdateEmployeeComponent extends React.Component {
 
         console.log('employee => ', JSON.stringify(employee));
 
-        EmployeeService.createEmployee(employee).then(res => {
+        EmployeeService.updateEmployee(employee, this.state.id).then(res => {
             this.props.history.push('/employees');
         });
     }
