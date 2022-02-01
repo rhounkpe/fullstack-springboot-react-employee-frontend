@@ -1,5 +1,5 @@
 import React from "react";
-import EmployeeService from "../services/EmployeeService";
+import EmployeeService from "../../services/EmployeeService";
 
 class UpdateEmployeeComponent extends React.Component {
     constructor(props) {

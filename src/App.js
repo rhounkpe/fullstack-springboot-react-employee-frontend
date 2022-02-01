@@ -1,20 +1,21 @@
 import './App.css';
 import {Route, Routes} from "react-router-dom";
-import ListEmployeeComponent from "./components/ListEmployeeComponent";
-import HeaderComponent from "./components/HeaderComponent";
-import FooterComponent from "./components/FooterComponent";
-import CreateEmployeeComponent from "./components/CreateEmployeeComponent";
+import HeaderComponent from "./components/statefull/HeaderComponent";
+import FooterComponent from "./components/statefull/FooterComponent";
+import EmployeeListComponent from "./components/stateless/EmployeeListComponent";
+import EmployeeCreateComponent from "./components/stateless/EmployeeCreateComponent";
 
 function App() {
     return (
         <div>
             <HeaderComponent/>
             <div className="container">
+
                 <Routes>
-                    <Route exact path="/" element={<ListEmployeeComponent/>}/>
-                    <Route exact path="/employees" element={<ListEmployeeComponent/>}/>
-                    <Route exact path="/add-employee/:id" element={<CreateEmployeeComponent/>}/>
-                   {/* <Route exact path="/update-employee/:id" element={<UpdateEmployeeComponent/>}/>*/}
+                    <Route exact path="/" element={<EmployeeListComponent />}/>
+                    <Route path="/employees" element={<EmployeeListComponent />}/>
+                    <Route path="/add-employee" element={<EmployeeCreateComponent />}/>
+                    <Route path="/edit-employee/:id" element={<EmployeeCreateComponent />}/>
                 </Routes>
             </div>
             <FooterComponent/>
